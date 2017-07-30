@@ -1,0 +1,70 @@
+<div class="columns">
+  <div class="column is-one-third">
+  </div>
+
+  <div class="column content">
+    <div class="box">
+      <h2>Select your questions</h2>
+      <p>Delete questions that are not important to you.</p>
+    </div>
+
+    {{#each questions as |question| }}
+      {{!-- <div class="box">
+        <div class="content">
+          <p><strong>{{ question.category }}</strong>
+          <br>
+           {{ question.question }}
+         </p>
+     </div>
+      </div> --}}
+    <div class="outer-wrapper">
+    <div class="wrapper">
+      <div class="card">
+        <header class="card-header">
+          <p class="card-header-title">
+            {{ question.category }}
+          </p>
+        </header>
+        <div class="card-content">
+          <div class="content">
+            {{ question.question }}
+          </div>
+        </div>
+        <div class="card-content">
+          <small> id: {{ question._id }} </small>
+        </div>
+        <footer class="card-footer">
+          <a class="card-footer-item">Delete</a>
+        </footer>
+      </div>
+      <br>
+    </div>
+    </div>
+
+    {{/each}}
+    <form class="" action="/user/quiz/qna" method="post">
+      <a class="button is-primary">Submit</a>
+    </form>
+  </div>
+
+  <div class="column is-one-third">
+  </div>
+</div>
+
+<script type="text/javascript">
+// enable deleting cards
+    const cardFooters = document.querySelectorAll('.card-footer')
+    for (var i = 0; i < cardFooters.length; i++) {
+      cardFooters[i].addEventListener('click', deleteCard)
+  }
+  function deleteCard (event) {
+    var parentDiv = event.target.parentElement.parentElement.parentElement.parentElement
+    console.log(parentDiv)
+    var childDiv = event.target.parentElement.parentElement.parentElement
+    console.log(childDiv)
+    parentDiv.removeChild(childDiv)
+  }
+
+  // send the remaining cards back to the app (backend)
+
+</script>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    {{!-- if i include the "." before /css, the file doesn't load on the client. WHY? --}}
+    {{!-- <link rel="stylesheet" href="./css/bulma.css"> --}}
+    <link rel="stylesheet" href="/css/bulma.css">
+    <title>MatchApp</title>
+  </head>
+  <body>
+
+    <nav class="navbar">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+          <img src="/img/logo.jpg" alt="MatchApp: don't waste time dating the wrong people" width="112" height="28">
+        </a>
+      </div>
+
+      {{#if user}}
+
+        <div id="menu_loggedout" class="navbar-menu">
+          <div class="navbar-start">
+            <a class="navbar-item" href="#">
+              Home
+            </a>
+            <div class="navbar-item">
+              <a class="navbar-item" href="./dashboard">
+                Dashboard
+              </a>
+            </div>
+            <div class="navbar-item">
+              <a class="navbar-item" href="./">
+                Log Out
+              </a>
+            </div>
+          </div>
+        </div>
+
+      {{/if}}
+
+      {{#unless user}}
+
+      <div id="menu_loggedout" class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item" href="#">
+            Home
+          </a>
+          <div class="navbar-item">
+            <a class="navbar-item" href="/auth/signup">
+              Sign Up
+            </a>
+          </div>
+          <div class="navbar-item">
+            <a class="navbar-item" href="/auth/login">
+              Log In
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {{/unless}}
+
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/mmmlll" target="_blank">
+          Github
+        </a>
+        <a class="navbar-item" href="https://www.medium.com/@michellelaiy" target="_blank">
+          Medium
+        </a>
+      </div>
+
+    </nav>
+
+    <div class="tile is-ancestor">
+      <div class="tile is-parent">
+        <div class="tile is-3">
+        </div>
+        <article class="tile is-child notification is-danger">
+          <p class="title">MatchApp</p>
+          <p class="subtitle">because swiping right is not enough</p>
+        </article>
+        <div class="tile is-3">
+        </div>
+      </div>
+    </div>
+
+    {{{ body }}}
+
+  {{!-- <footer class="footer">
+    <div class="container">
+      <div class="content has-text-centered">
+        <p>
+          <strong>MatchApp</strong> by <a href="https://www.medium.com/@michellelaiy">Michelle Lai</a>. The source code is licensed
+          <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
+          is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC ANS 4.0</a>.
+        </p>
+      </div>
+    </div>
+  </footer> --}}
+
+  </body>
+</html>
