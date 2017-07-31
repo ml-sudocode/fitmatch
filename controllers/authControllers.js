@@ -27,13 +27,19 @@ function getSignup(req, res) {
 
 // POST /signup
 // this inserts the req and res objects into a function, which authenticates against a strategy that is defined in passport.js. If there is any error, the page will be redirected to the paths specified below, with the flash messages specified in passport.js. If there is no error, the user is returned, and [a session document will be created for the user]
-function postSignup(req, res) {
+function postSignup(req, res, next) {
   const signupStrategy = passport.authenticate('local-signup', {
     successRedirect: "/user/dashboard",
     failureRedirect: "/auth/signup",
     failureFlash: true
   })
-  return signupStrategy(req, res)
+  return signupStrategy(req, res, next)
+}
+
+// GET /logout
+function getLogout(req, res) {
+  req.logout();
+  res.redirect("/");
 }
 
 // export
@@ -41,5 +47,6 @@ module.exports = {
   getLogin,
   postLogin,
   getSignup,
-  postSignup
+  postSignup,
+  getLogout
 }

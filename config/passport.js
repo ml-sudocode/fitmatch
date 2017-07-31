@@ -4,7 +4,7 @@
 // importantly, this file first determines what data from user is stored in session documents (.serializeUser), and then uses that data to find the user (document), and assigns it to the req.user object (.deserializeUser)
 
 // require the necessary module(s)
-// const passport = require('passport')
+const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 
 // require the user model, which passport has to filter through to find the right document
@@ -69,7 +69,7 @@ module.exports = function (passport) {
       if(!foundUser) return done(null, false, req.flash('errorMessage', 'No user found'))
       // check if the password is correct
       if (!foundUser.validPassword(password)) return done(null, false, req.flash('errorMessage', 'Wrong password'))
-      return done(null, user)
+      return done(null, foundUser)
     })
   }))
 }

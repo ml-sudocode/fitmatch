@@ -7,6 +7,7 @@
       <h2>Select your questions</h2>
       <p>Delete questions that are not important to you.</p>
     </div>
+    <form class="" action="/user/quiz/qna" method="post">
 
     {{#each questions as |question| }}
       {{!-- <div class="box">
@@ -23,15 +24,18 @@
         <header class="card-header">
           <p class="card-header-title">
             {{ question.category }}
+            <input type="hidden" name="categories" value="{{ question.category }}">
           </p>
         </header>
         <div class="card-content">
           <div class="content">
             {{ question.question }}
+            <input type="hidden" name="questions" value="{{ question.question }}">
           </div>
         </div>
         <div class="card-content">
           <small> id: {{ question._id }} </small>
+          <input type="hidden" name="qnIds" value="{{ question._id }}">
         </div>
         <footer class="card-footer">
           <a class="card-footer-item">Delete</a>
@@ -42,8 +46,7 @@
     </div>
 
     {{/each}}
-    <form class="" action="/user/quiz/qna" method="post">
-      <a class="button is-primary">Submit</a>
+      <input class="button is-primary" type="submit" name="" value="Submit">
     </form>
   </div>
 
@@ -59,9 +62,7 @@
   }
   function deleteCard (event) {
     var parentDiv = event.target.parentElement.parentElement.parentElement.parentElement
-    console.log(parentDiv)
     var childDiv = event.target.parentElement.parentElement.parentElement
-    console.log(childDiv)
     parentDiv.removeChild(childDiv)
   }
 

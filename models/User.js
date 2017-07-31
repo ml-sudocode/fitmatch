@@ -16,7 +16,7 @@ const referralSchema = new Schema({
 const userSchema = new Schema({
   name: {
     type: String,
-    required: [true, 'Please type your name']
+    // required: [true, 'Please type your name']
   },
   email: {
     type: String,
@@ -66,21 +66,23 @@ userSchema.methods.validPassword = function (givenPassword) {
 }
 
 // pre save hook to insert creation and updated dates. copied from https://stackoverflow.com/questions/12669615/add-created-at-and-updated-at-fields-to-mongoose-schemas
-userSchema.pre('save', function(next){
-  now = new Date();
-  this.updated_at = now;
-  if ( !this.created_at ) {
-    this.created_at = now;
+userSchema.pre('save', function (next) {
+  now = new Date()
+  this.updated_at = now
+  if (!this.created_at) {
+    this.created_at = now
   }
-  next();
-});
+  next()
+})
 
 // create models
 const Referral = mongoose.model('Referral', referralSchema)
 const User = mongoose.model('User', userSchema)
 
 // export the model
-module.exports = {
-  Referral,
-  User
-}
+// module.exports = {
+//   Referral,
+//   User
+// }
+
+module.exports = User

@@ -9,7 +9,10 @@ const qnaSchema = new Schema({
   }],
   answers: [{
     type: String
-  }]
+  }],
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'}
 })
 
 // create Model

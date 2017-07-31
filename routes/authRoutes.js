@@ -21,7 +21,8 @@ function unauthenticatedUser (req, res, next) {
   // if user is NOT authenticated, then we proceed with the next callback
   if (!req.isAuthenticated()) return next()
   // if user is authenticated, show error message via flash and redirect to [?]]
-  req.flash('errorMessage', 'You are already logged in!')
+  req.flash('info', 'You are already logged in!')
+  // the above flash definition (label = info, message = you are logged in) is PASSED to the session
   return res.redirect('/user/dashboard')
 }
 
@@ -36,6 +37,10 @@ router.route('/signup')
   .post(authControllers.postSignup)
 
 // resetpassword routes
+
+// logout route
+router.route("/logout")
+  .get(authControllers.getLogout)
 
 // export router
 module.exports = router

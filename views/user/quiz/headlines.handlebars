@@ -1,0 +1,58 @@
+<div class="columns">
+  <div class="column is-one-third">
+  </div>
+
+  <div class="column content">
+    <p> {{ info }} </p>
+    <p> {{ errors }} </p>
+    <div class="box">
+      <h2>What do you think?</h2>
+      <p>Comment on these headlines to help your date get inside your head!</p>
+    </div>
+  <form class="" action="/user/quiz/headlines" method="post">
+    {{#each headlines as |headline| }}
+    <div class="outer-wrapper">
+    <div class="wrapper">
+      <div class="card news-card">
+        <header class="card-header">
+          <p class="card-header-title">
+            {{ headline.title }}
+            <input type="hidden" name="headlineTitles" value="{{ headline.title }}">
+          </p>
+        </header>
+        <div class="card-content">
+          <small> published: {{ headline.publishedAt }} </small>
+          <input type="hidden" name="publishedDates" value="{{ headline.publishedAt }}">
+        </div>
+        <div class="card-content">
+          <p> {{ headline.description }} </p>
+          <input type="hidden" name="descriptions" value="{{ headline.description }}">
+        </div>
+        <div class="card-content">
+          <figure class="image is-2by1">
+            <img src="{{ headline.urlToImage }}" alt="Image">
+          </figure>
+        </div>
+        <div class="card-content">
+          <a href="{{ headline.description }}"><small>Link to article</small></a>
+          <input type="hidden" name="descriptions" value="{{ headline.description }}">
+        </div>
+        <br>
+        <div class="card-content">
+          <div class="content">
+            <input type="textarea" name="comments" class="textarea" placeholder="write your comment here">
+          </div>
+        </div>
+      </div>
+      <br>
+    </div>
+    </div>
+
+    {{/each}}
+    <input class="button is-primary" type="submit" name="" value="Submit">
+  </form>
+  </div>
+
+  <div class="column is-one-third">
+  </div>
+</div>
