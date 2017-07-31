@@ -89,6 +89,11 @@ app.use(bodyParser.urlencoded({extended: true}))
 // }));
 // alternatively, as used in brian's project: app.use(methodOverride('_method'))
 
+// this doesn't work: "req" is not defined. How to fix it???
+// app.locals = {
+//   user: req.user
+// }
+
 // state the static/public directory
 app.use(express.static('public'))
 

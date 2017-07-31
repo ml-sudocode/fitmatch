@@ -1,5 +1,5 @@
 <div class="columns">
-  <div class="column is-one-third">
+  <div class="column is-one-quarter">
   </div>
 
   <div class="column content">
@@ -17,30 +17,24 @@
         <header class="card-header">
           <p class="card-header-title">
             {{ headline.title }}
-            <input type="hidden" name="headlineTitles" value="{{ headline.title }}">
+            <input type="hidden" name="titles" value="{{ headline.title }}">
           </p>
         </header>
-        <div class="card-content">
-          <small> published: {{ headline.publishedAt }} </small>
-          <input type="hidden" name="publishedDates" value="{{ headline.publishedAt }}">
-        </div>
-        <div class="card-content">
-          <p> {{ headline.description }} </p>
-          <input type="hidden" name="descriptions" value="{{ headline.description }}">
-        </div>
-        <div class="card-content">
+          <div class="card-content">
+            <p> {{ headline.description }} </p>
+            <input type="hidden" name="descriptions" value="{{ headline.description }}">
+            <small> published: {{ headline.publishedAt }} |</small>
+            <input type="hidden" name="publishedDates" value="{{ headline.publishedAt }}">
+            <a href="{{ headline.url }}"><small>Link to article</small></a>
+            <input type="hidden" name="urls" value="{{ headline.url }}">
+          </div>
           <figure class="image is-2by1">
             <img src="{{ headline.urlToImage }}" alt="Image">
+            <input type="hidden" name="imgUrls" value="{{ headline.urlToImage }}">
           </figure>
-        </div>
-        <div class="card-content">
-          <a href="{{ headline.description }}"><small>Link to article</small></a>
-          <input type="hidden" name="descriptions" value="{{ headline.description }}">
-        </div>
-        <br>
         <div class="card-content">
           <div class="content">
-            <input type="textarea" name="comments" class="textarea" placeholder="write your comment here">
+            <input type="textarea" wrap="soft" name="comments" class="textarea" placeholder="write your comment here">
           </div>
         </div>
       </div>
@@ -53,6 +47,6 @@
   </form>
   </div>
 
-  <div class="column is-one-third">
+  <div class="column is-one-quarter">
   </div>
 </div>

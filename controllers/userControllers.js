@@ -1,11 +1,13 @@
 // const request = require('request')
 const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest
+const HeadlineComment = require('../models/HeadlineComment')
 
 function showHeadlines (req, res) {
   // const headlines = makeApiCall()
   const headlines = makeApiCall()
-  console.log(`these is headlines in showHeadlines: ${headlines}`)
+  // console.log(`these is headlines in showHeadlines: ${headlines}`)
   res.render('user/quiz/headlines', {
+    user: req.user,
     headlines: headlines,
     info: req.flash('info'),
     errors: req.flash('errorMessage')
@@ -38,7 +40,29 @@ function makeApiCall () {
     return headlines
 }
 
+function saveHeadlineComments (req, res) {
+  // get data from the form submit and save into the database
+  const headlineComment = new HeadlineComment ({
+    titles: req.body.titles,
+    descriptions: req.body.descriptions,
+    urls: req.body.urls,
+    publishedDates: req.body.publishedDates,
+    imgUrls: req.body.imgUrls,
+    comments: req.body.comments,
+    user: req.user._id
+  })
+  // console.log('CREATED new HeadlineComment document')
+
+  headlineComment.save(function (err, headlineComment) {
+  if (err) { return res.send(err) }
+  })
+  // console.log('SAVED new HeadlineComment document')
+  req.flash('info', 'Your headline comments are saved!')
+  res.redirect('/user/thankyou')
+}
+
 // export
 module.exports = {
-  showHeadlines
+  showHeadlines,
+  saveHeadlineComments
 }

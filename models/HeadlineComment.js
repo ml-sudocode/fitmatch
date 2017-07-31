@@ -4,12 +4,27 @@ const Schema = mongoose.Schema
 
 // create Schema
 const headlineCommentSchema = new Schema({
-  headlines: [{
+  titles: [{
+    type: String
+  }],
+  descriptions: [{
+    type: String
+  }],
+  urls: [{
+    type: String
+  }],
+  publishedDates: [{
+    type: String
+  }],
+  imgUrls: [{
     type: String
   }],
   comments: [{
     type: String
-  }]
+  }],
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'}
 })
 
 // create Model

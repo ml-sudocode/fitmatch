@@ -1,11 +1,22 @@
 const express = require('express')
 const router = express.Router()
+const passport = require('passport')
 const Question = require('../models/Question')
 const Qna = require('../models/Qna')
 const userControllers = require('../controllers/userControllers')
 
+// create function to determine what happens if use navigates to a page that requires log in
+function authenticatedUser (req, res, next) {
+  // if user is authenticated, then we proceed with the next callback
+  if (req.isAuthenticated()) return next()
+  // if user is not authenticated, show error message via flash and redirect to login page
+  // this flash doesn't seem to work
+  req.flash('info', 'Log in to access!')
+  res.redirect('/auth/login')
+}
+
 router.route('/dashboard')
-  .get(function (req, res) {
+  .get(authenticatedUser, function (req, res) {
     res.render('user/dashboard', {
       user: req.user,
       // to avoid having to write the below for all my routes, i could go to app.js and write app.locals.flash... this writes the flash info into Sessions documents. See Placies repo? He couldn't get it to configure properly for me, so we just do it the longwinded way here
@@ -15,7 +26,7 @@ router.route('/dashboard')
   })
 
 router.route('/quiz/qna')
-  .get(function (req, res) {
+  .get(authenticatedUser, function (req, res) {
     Question.find({}, function (err, questionsFound) {
       if (err) res.send(err)
     })
@@ -38,7 +49,7 @@ router.route('/quiz/qna')
 
 router.route('/quiz/qna/answer')
     // display the data, including textarea inputs for comment
-    .get(function (req, res) {
+    .get(authenticatedUser, function (req, res) {
       const categories = req.session.categories
       const questionsSelected = req.session.questions
       const qnIds = req.session.qnIds
@@ -50,7 +61,6 @@ router.route('/quiz/qna/answer')
       })
     })
     .post(function (req, res) {
-      // ********************* RESUME HERE *********************
       // Need to figure out how to pop the info from client to node (same problem as above) [resolved]
       // However answer has to be slightly different, as you want to save the page info into the DB permanently (vs just in the ephemeral sessions) - in this case, instead of req.sessions.questions = req.body.questions, we create a new document from the Qna model, and insert req.body into the properties of the document
       // res.send(req.body)
@@ -73,13 +83,37 @@ router.route('/quiz/qna/answer')
 
 // /quiz/headlines
 router.route('/quiz/headlines')
-  .get(userControllers.showHeadlines)
-  // .post
-  // ******************* RESUME HERE *******************
+  .get(authenticatedUser, userControllers.showHeadlines)
+  .post(userControllers.saveHeadlineComments)
 
-// /quiz/headlines/comments
-// /quiz/thankyou
-// /quiz/previousresults
+router.route('/thankyou')
+  .get(authenticatedUser, function (req, res) {
+    res.render('user/thankyou', {
+      user: req.user,
+      info: req.flash('info'),
+      error: req.flash('errorMessage')
+    })
+  })
+// /results
+router.route('/results')
+  .get(authenticatedUser, function (req, res) {
+    Qna
+    .find({ 'user': req.user._id }, function (err, foundQnaDocs) {
+      // if (err) throw err
+      if (err) res.send(err)
+      res.send(foundQnaDocs)
+    })
+  })
+
+// token
+router.route('/token')
+  .get(authenticatedUser, function (req, res) {
+    res.render('user/token', {
+      user: req.user,
+      token: req.user._id
+    })
+  })
+
 // /personalityinsights
 
 module.exports = router
