@@ -37,6 +37,10 @@ router.route('/signup')
   .post(authControllers.postSignup)
 
 // resetpassword routes
+router.route("/resetpassword")
+  .get(function (req, res) {
+    res.send('Please contact site administrator at administrator [at] matchapp.io [this is a dummy email... in case that\'s not obvious]')
+  })
 
 // logout route
 router.route("/logout")
