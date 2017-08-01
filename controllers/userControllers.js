@@ -17,7 +17,9 @@ function showHeadlines (req, res) {
 }
 
 function makeApiCall () {
-  const url = process.env.NEWS_API_URL
+  // const url = process.env.NEWS_API_URL
+  const url = process.env.NEWS_API_URL_BASE + '&apiKey=' + process.env.NEWS_API_KEY
+  console.log(url)
 
   // using the request package didn't seem to work for me, so i went to xmlhttprequest
   // const headlines = request(url, function (err, res, body) {
