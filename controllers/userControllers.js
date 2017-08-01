@@ -5,7 +5,9 @@ const HeadlineComment = require('../models/HeadlineComment')
 function showHeadlines (req, res) {
   // const headlines = makeApiCall()
   const headlines = makeApiCall()
+  console.log('headline suppose to show')
   // console.log(`these is headlines in showHeadlines: ${headlines}`)
+  return res.send(headlines)
   res.render('user/quiz/headlines', {
     user: req.user,
     headlines: headlines,
@@ -29,20 +31,20 @@ function makeApiCall () {
   // })
   // return headlines
 
-    const req = new XMLHttpRequest()
-    req.open('GET', url, false)
-    req.send(null)
+  const req = new XMLHttpRequest()
+  req.open('GET', url, false)
+  req.send(null)
     // console.log(`req.status is: ${req.status}`)
     // console.log(JSON.parse(req.responseText))
-    const responseTextAsJSObject = JSON.parse(req.responseText)
-    const headlines = responseTextAsJSObject.articles
+  const responseTextAsJSObject = JSON.parse(req.responseText)
+  const headlines = responseTextAsJSObject.articles
     // console.log(`headlines is: ${headlines}`)
-    return headlines
+  return headlines
 }
 
 function saveHeadlineComments (req, res) {
   // get data from the form submit and save into the database
-  const headlineComment = new HeadlineComment ({
+  const headlineComment = new HeadlineComment({
     titles: req.body.titles,
     descriptions: req.body.descriptions,
     urls: req.body.urls,
@@ -54,7 +56,7 @@ function saveHeadlineComments (req, res) {
   // console.log('CREATED new HeadlineComment document')
 
   headlineComment.save(function (err, headlineComment) {
-  if (err) { return res.send(err) }
+    if (err) { return res.send(err) }
   })
   // console.log('SAVED new HeadlineComment document')
   req.flash('info', 'Your headline comments are saved!')
