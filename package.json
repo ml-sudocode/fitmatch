@@ -30,13 +30,6 @@
     "start": "nodemon app.js"
   },
   "description": "This is the code for MatchApp, a project created for General Assembly's Web Development Immersive Summer 2017 course.",
-  "bugs": {
-    "url": "https://github.com/mmmlll/project-2/issues"
-  },
-  "homepage": "https://github.com/mmmlll/project-2#readme",
-  "directories": {
-    "test": "test"
-  },
   "devDependencies": {
     "nodemon": "^1.11.0"
   }
