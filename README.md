@@ -128,7 +128,7 @@ _None_
 * [Bulma](https://bulma.io) - CSS Module
 * [NodeJS](https://nodejs.org) - Backend
 * [MongoDB](https://www.mongodb.com) - Database
-* **CSS**
-* **HTML5**
+* CSS
+* HTML5
 
 __Contact: michelle.y.lai |at| gmail.com__
