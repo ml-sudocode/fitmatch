@@ -3,7 +3,8 @@
 Read Me Contents
 -->
 
-#![](public/img/logo.jpg) MatchApp
+# ![](public/img/logo.jpg) MatchApp
+
 _because swiping right is not enough_
 
 
