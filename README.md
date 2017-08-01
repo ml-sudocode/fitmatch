@@ -35,7 +35,7 @@ MatchApp takes away the awkwardness of asking deeply personal questions on value
 ![](public/img/newsapi.png)
 <br>
 
-* **Concept Diagram**
+#### Concept Diagram
 How the app works
 (aka: how _packages_ and other concepts work together e.g. _MVC, deployment, database client_)
 ![](public/img/conceptdiagram.jpg)
@@ -50,7 +50,7 @@ https://drive.google.com/open?id=0B0RuV0ofDtIfTGlPQnp4RVMzeWs
 <br>
 
 * **Folder Architecture**
-These are the main directories. 
+These are the main directories.
 ![](public/img/folderarchitecture.png)
 <br>
 
