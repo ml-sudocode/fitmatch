@@ -115,6 +115,6 @@ router.route('/token')
   })
 
 router.route('/personalityinsights')
-  .get(authenticatedUser, userControllers.prepareData)
+  .get(authenticatedUser, userControllers.getPersonalityInsights)
 
 module.exports = router

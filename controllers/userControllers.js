@@ -30,7 +30,7 @@ function showHeadlines (req, res) {
 function makeApiCall () {
   // const url = process.env.NEWS_API_URL
   const url = process.env.NEWS_API_URL_BASE + '&apiKey=' + process.env.NEWS_API_KEY
-  console.log(url)
+  // console.log(url)
 
   // using the request package didn't seem to work for me, so i went to xmlhttprequest
   // const headlines = request(url, function (err, res, body) {
@@ -84,7 +84,9 @@ function prepareData (req, res, getQnaData) {
   // getHeadlineData(req, res)
   // console.log(`sampleText after getQnaData (shd have 2 objects): ${sampleText}`)
   // console.log(sampleText)
-  getQnaData(req, res)
+  getQnaData(req, res, getHeadlineData)
+  // console.log(`sampleText before 'next' in prepareData`)
+  // console.log(sampleText)
 }
 
 function getQnaData (req, res, getHeadlineData) {
@@ -99,8 +101,8 @@ function getQnaData (req, res, getHeadlineData) {
       // need .join(' ') because answers is an array of strings. We want just one string.
       contentObj.content = foundQnaDocs[i].answers.join(' ')
       sampleText.push(contentObj)
-      console.log(`sampleText inside the .find method in getQnaData: ${sampleText}`)
-      console.log(sampleText)
+      // console.log(`sampleText inside the .find method in getQnaData: ${sampleText}`)
+      // console.log(sampleText)
     }
     getHeadlineData(req, res)
   // console.log(sampleText)
@@ -115,8 +117,6 @@ function getHeadlineData (req, res) {
       const contentObj = {}
       contentObj.content = foundHeadlineDocs[i].comments.join(' ')
       sampleText.push(contentObj)
-      console.log(`sampleText inside the .find method in getHeadlineData: ${sampleText}`)
-      console.log(sampleText)
     }
     // console.log(sampleText)
     getPersonalityInsights(req, res)
@@ -124,47 +124,52 @@ function getHeadlineData (req, res) {
 }
 
 function getPersonalityInsights (req, res) {
-  // prepareData(req, res)
-  // console.log(`sampleText after prepareData: ${sampleText}`)
+  prepareData(req, res, getQnaData)
+  // console.log(`sampleText after prepareData`)
   // console.log(sampleText)
 
-  const personality_insights = new PersonalityInsightsV3({
-    username: username,
-    password: password,
-    version_date: '2017-04-10',
-    headers: {
-      'X-Watson-Learning-Opt-Out': 'true'
+  setTimeout(function() {
+    // console.log(`sampleText after setTimeout`)
+    // console.log(sampleText)
+    const personality_insights = new PersonalityInsightsV3({
+      username: username,
+      password: password,
+      version_date: '2017-04-10',
+      headers: {
+        'X-Watson-Learning-Opt-Out': 'true'
+      }
+    })
+
+    const params = {
+      // Get the content items from the JSON file.
+      // content_items: require('./misc_ref/profile.json').contentItems,
+      content_items: sampleText,
+      consumption_preferences: true,
+      raw_scores: true,
+      headers: {
+        'accept-language': 'en',
+        'accept': 'application/json'
+      }
     }
-  })
 
-  const params = {
-    // Get the content items from the JSON file.
-    // content_items: require('./misc_ref/profile.json').contentItems,
-    content_items: sampleText,
-    consumption_preferences: true,
-    raw_scores: true,
-    headers: {
-      'accept-language': 'en',
-      'accept': 'application/json'
-    }
-  }
+    // comment this out to avoid an additional API call during testing
+    // personality_insights.profile(params, function(error, response) {
+    //   if (error)
+    //     console.log('Error:', error);
+    //   // else
+    //     // console.log(JSON.stringify(response, null, 2));
+    //     // const rawResults = JSON.stringify(response, null, 2)
+    //     // res.send(rawResults)
+    //     const rawResults = JSON.stringify(response, null, 2)
+    //     console.log(`These are the results: ${rawResults}`)
+    //   })
 
-  // comment this out to avoid an additional API call during testing
-  // personality_insights.profile(params, function(error, response) {
-  //   if (error)
-  //     console.log('Error:', error);
-  //   // else
-  //     // console.log(JSON.stringify(response, null, 2));
-  //     // const rawResults = JSON.stringify(response, null, 2)
-  //     // res.send(rawResults)
-  //     const rawResults = JSON.stringify(response, null, 2)
-  //     console.log(`These are the results: ${rawResults}`)
-  //   })
+    res.render('user/personalityinsights', {
+      user: req.user
+      // pi_results: rawResults
+    })
+  }, 8000)
 
-  res.render('user/personalityinsights', {
-    user: req.user
-    // pi_results: rawResults
-  })
 }
 
     // The note below no longer applies because i have moved this function out of the getPersonalityInsights function. So the failure does not happen
