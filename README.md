@@ -3,8 +3,8 @@
 Read Me Contents
 -->
 
-![](public/img/logo.jpg) **MatchApp**
-#### because swiping right is not enough
+#![](public/img/logo.jpg) MatchApp
+_because swiping right is not enough_
 
 
 **[View It Here](https://intense-cliffs-78971.herokuapp.com)**
