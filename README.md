@@ -22,11 +22,11 @@ MatchApp takes away the awkwardness of asking deeply personal questions on value
 
 * **Entity Relationship Diagram (initial)**
 
-  ![](public/img/erd.pdf)
+  ![](public/img/erd.png)
 
 * **Flow Diagram**
 
-  ![](public/img/flow.jpg)
+  ![](public/img/flowdiagram.jpg)
 
 ---
 ## Development
@@ -50,7 +50,7 @@ https://drive.google.com/open?id=0B0RuV0ofDtIfTGlPQnp4RVMzeWs
 <br>
 
 * **Folder Architecture**
-![](public/img/folderarchitecture.jpg)
+![](public/img/folderarchitecture.jpeg)
 <br>
 
 ---
