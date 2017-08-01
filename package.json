@@ -28,7 +28,7 @@
     "xmlhttprequest": "^1.8.0"
   },
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "node app.js"
   },
   "description": "This is the code for MatchApp, a project created for General Assembly's Web Development Immersive Summer 2017 course.",
   "devDependencies": {}
