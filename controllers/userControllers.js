@@ -5,9 +5,9 @@ const HeadlineComment = require('../models/HeadlineComment')
 function showHeadlines (req, res) {
   // const headlines = makeApiCall()
   const headlines = makeApiCall()
-  console.log('headline suppose to show')
+  // console.log('headline supposed to show')
   // console.log(`these is headlines in showHeadlines: ${headlines}`)
-  return res.send(headlines)
+  // return res.send(headlines)
   res.render('user/quiz/headlines', {
     user: req.user,
     headlines: headlines,
@@ -34,8 +34,8 @@ function makeApiCall () {
   const req = new XMLHttpRequest()
   req.open('GET', url, false)
   req.send(null)
-  console.log(`req.status is: ${req.status}`)
-  console.log(JSON.parse(req.responseText))
+  // console.log(`req.status is: ${req.status}`)
+  // console.log(JSON.parse(req.responseText))
   const responseTextAsJSObject = JSON.parse(req.responseText)
   const headlines = responseTextAsJSObject.articles
     // console.log(`headlines is: ${headlines}`)
