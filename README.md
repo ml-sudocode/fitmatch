@@ -31,7 +31,7 @@ MatchApp takes away the awkwardness of asking deeply personal questions on value
 ---
 ## Development
 
-* **News API**
+#### News API
 ![](public/img/newsapi.png)
 <br>
 
@@ -39,20 +39,15 @@ MatchApp takes away the awkwardness of asking deeply personal questions on value
 How the app works
 (aka: how _packages_ and other concepts work together e.g. _MVC, deployment, database client_)
 ![](public/img/conceptdiagram.jpg)
-<br>
 
-* **Wireframes**
+#### Wireframes
 https://drive.google.com/open?id=0B0RuV0ofDtIfZzYxRkVRRTVvOWc
-<br>
 
-* **Pseudo Code**
+#### Pseudo Code
 https://drive.google.com/open?id=0B0RuV0ofDtIfTGlPQnp4RVMzeWs
-<br>
 
-* **Folder Architecture**
-These are the main directories.
+#### Folder Architecture
 ![](public/img/folderarchitecture.png)
-<br>
 
 ---
 ## Main concepts and packages
@@ -71,7 +66,7 @@ Express is a web application framework for Node.js
 #### Session
 The app employs persistent sessions.
 * connect-mongo (MongoStore) is used to connect session data to the database
-* __Package: session, connect-mongo__
+* __Packages: session, connect-mongo__
 
 #### Authentication
 The app uses passport (attached to sessions) for authentication.
@@ -85,13 +80,11 @@ A local passport strategy to provide signup and login authentication.
 * Based on [this repo](https://github.com/primaulia/passport-ref)
 
 #### MVC Concept: Models, Views, Controllers... + Routes
-The MVC concept is applied.
 * Routes direct requests to Controllers, which interact with Models (search and create documents), and generate Views
 * View engine used is handlebars
 * __Packages: handlebars__
 
 #### Others
-* bulma: css framework
 * body-parser: to parse requests. Works with express
 * cookie-parser: to parse cookies. Works with sessions
 * xmlhttprequest: to call API(s). This is a built-in node module
@@ -122,10 +115,10 @@ _None_
 ---
 ## Project Development
 
-* Provide personality data based on user answers and comments. Use IBM Watson Personality Insights API
-* Include ranking questions and compare between linked users
-* Suggestions for how to use the results
-* Email or download results (currently only res.send to page)
+1. Provide personality data based on user answers and comments. Use IBM Watson Personality Insights API
+2. Include ranking questions and compare between linked users
+3. Suggestions for how to use the results
+4. Email or download results (currently only res.send to page)
 
 ---
 ## Built With
