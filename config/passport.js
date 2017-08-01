@@ -30,16 +30,16 @@ module.exports = function (passport) {
     passReqToCallback: true,
   }, function (req, email, password, done) {
     // find a user with this email
-    console.log('gets to local-signup strategy in passport.js file')
+    // console.log('gets to local-signup strategy in passport.js file')
     User.findOne({ 'email': email }, function (err, user) {
-      console.log('gets to exec in local-signup strategy in passport.js file')
+      // console.log('gets to exec in local-signup strategy in passport.js file')
       if (err) return done(err)
       // if there is a user with this email
       if (user) {
         return done(null, false, req.flash('errorMessage', 'This email is already taken'))
       } else {
         // create a new user
-        console.log('starts creating new User in local-signup strategy in passport.js file')
+        // console.log('starts creating new User in local-signup strategy in passport.js file')
         var newUser = new User()
         newUser.email = email
         // note that the password is set as the plaintext pwd here, but it is hashed before being saved to the DB because of a pre save hook (see User model file)

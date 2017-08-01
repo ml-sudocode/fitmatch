@@ -1,0 +1,19 @@
+Michelles-MacBook-Air-2:project-2 mlaimba$ heroku addons:create mongolab:sandbox
+ ▸    heroku-cli: update available from 6.12.8 to 6.13.5-5be2d1f
+Creating mongolab:sandbox on ⬢ intense-cliffs-78971... free
+Welcome to mLab.  Your new subscription is being created and will be available shortly.  Please consult the
+ mLab Add-on Admin UI to check on its progress.
+Created mongolab-crystalline-12900 as MONGODB_URI
+Use heroku addons:docs mongolab to view documentation
+
+
+Michelles-MacBook-Air-2:project-2 mlaimba$ heroku config
+ ▸    heroku-cli: update available from 6.12.8 to 6.13.5-5be2d1f
+=== intense-cliffs-78971 Config Vars
+MONGODB_URI: mongodb://heroku_3pnd40p4:3o6gkkqegitp7llb6sdqv4h6aa@ds127983.mlab.com:27983/heroku_3pnd40p4
+
+db username: heroku_3pnd40p4
+db password: 3o6gkkqegitp7llb6sdqv4h6aa
+host:		ds127983.mlab.com
+port:		27983
+db name:		heroku_3pnd40p4
