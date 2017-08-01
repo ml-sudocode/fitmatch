@@ -10,13 +10,16 @@ const qnaSchema = new Schema({
   answers: [{
     type: String
   }],
+  // user: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: 'User'},
   user: {
-    type: Schema.Types.ObjectId,
-    ref: 'User'}
+    type: String
+  }
 })
 
 // create Model
-const Qna = mongoose.model('Qna',  qnaSchema)
+const Qna = mongoose.model('Qna', qnaSchema)
 
 // export Model
 module.exports = Qna

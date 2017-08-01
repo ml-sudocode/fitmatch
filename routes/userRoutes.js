@@ -114,6 +114,7 @@ router.route('/token')
     })
   })
 
-// /personalityinsights
+router.route('/personalityinsights')
+  .get(authenticatedUser, userControllers.prepareData)
 
 module.exports = router

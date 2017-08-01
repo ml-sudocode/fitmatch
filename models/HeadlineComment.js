@@ -22,9 +22,12 @@ const headlineCommentSchema = new Schema({
   comments: [{
     type: String
   }],
+  // user: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: 'User'},
   user: {
-    type: Schema.Types.ObjectId,
-    ref: 'User'}
+    type: String
+  }
 })
 
 // create Model
