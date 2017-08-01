@@ -50,6 +50,7 @@ https://drive.google.com/open?id=0B0RuV0ofDtIfTGlPQnp4RVMzeWs
 <br>
 
 * **Folder Architecture**
+<br>
 ![](public/img/folderarchitecture.png)
 <br>
 
