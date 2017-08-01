@@ -111,6 +111,8 @@ _None_
 1. Full CRUD functionality: ability to Update or Delete previous responses (now, only Create and Read)
 2. Improve DRY: add something like app.locals = {user: req.user}, to avoid inserting into every res.render
 3. Refactor routes and controllers to be more consistent (res.render and res.redirect occur on both routes and controllers)
+4. Test-driven development: use Mocha and Chai testing frameworks
+5. Cross browser testing
 
 ---
 ## Project Development
