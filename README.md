@@ -35,9 +35,19 @@ MatchApp takes away the awkwardness of asking deeply personal questions on value
 ![](public/img/newsapi.png)
 <br>
 
+#### IBM Watson: Personality Insights API
+Personality Insights analyzes free text and generates information on personality type, needs, values, sensitivities, preferences, etc. Users can compare their results to each other, to better understand and relate to each other.
+<br>
+![](public/img/pi_documentation.png)
+<br>
+Example output
+<br>
+![](public/img/pi_display.png)
+
 #### Concept Diagram
 How the app works
 (aka: how _packages_ and other concepts work together e.g. _MVC, deployment, database client_)
+<br>
 ![](public/img/conceptdiagram.jpg)
 
 #### Wireframes
@@ -85,6 +95,7 @@ A local passport strategy to provide signup and login authentication.
 * __Packages: handlebars__
 
 #### Others
+* IBM Watson: watson-developer-cloud
 * body-parser: to parse requests. Works with express
 * cookie-parser: to parse cookies. Works with sessions
 * xmlhttprequest: to call API(s). This is a built-in node module
@@ -101,11 +112,11 @@ A local passport strategy to provide signup and login authentication.
 _None_
 
 #### Non-Critical
-1. Flash messages not working reliably (e.g. sometimes multiple flash messages appear, sometimes flash messages do not appear)
+1. Flash messages not working reliably (e.g. sometimes multiple flash messages appear, sometimes flash messages do not appear).
 2. User document
-  - Name and token information not saved to database. Referral information not utilized
-  - Populate qna and headlinecomments document ids
-  - Populate timing data (created, last updated)
+  - Upon sign up, Name and token information not saved to database, so referral information not utilized. Populate timing data (created, last updated).
+  - Upon creation of qna and headlinecomments document ids, populate related User document with those ids
+3. Async issues are not allowing comprehensive compiling of data to pass to IBM Watson API; only Q&A answers, and not headline comments, are passed to IBM Watson.
 
 #### Good to Have  
 1. Full CRUD functionality: ability to Update or Delete previous responses (now, only Create and Read)
@@ -117,10 +128,19 @@ _None_
 ---
 ## Project Development
 
-1. Provide personality data based on user answers and comments. Use IBM Watson Personality Insights API
-2. Include ranking questions and compare between linked users
-3. Suggestions for how to use the results
-4. Email or download results (currently only res.send to page)
+1. Include ranking questions and compare between linked users. Suggestions for how to use the results.
+3. Email or download results (currently only res.send to page).
+4. Render IBM Watson Personality Insights results graphically.
+
+---
+## Key Technical Learnings
+
+* Async execution. Querying data from two models, then running API.
+* Referencing vs embedding NoSQL approaches. Populate.
+* Sessions. Saving data to, and pulling data from, session store.
+* Authentication. Strategies.
+* Encryption.
+* Chaining functions. Next.
 
 ---
 ## Built With
