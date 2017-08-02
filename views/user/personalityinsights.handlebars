@@ -1,8 +1,24 @@
-<p>What is IBM Watson's Personality Insights? Watch a video here: https://www.youtube.com/watch?v=YdVVLWv3Fwo</p>
+<div class="columns">
+  <div class="column is-one-quarter">
+  </div>
 
-<p>Read more on the science at: https://www.ibm.com/watson/developercloud/doc/personality-insights/science.html</p>
+  <div class="column content">
 
-{{ pi_results }}
+    {{ info }}
+    {{ error }}
 
-{{ somedata }}
-{{!-- [AXN] ADD COPIED CSS FILE TO MAIN.HBS, BEFORE/AFTER (TRY) THE MAIN HBS FILE --}}
+    <div class="box">
+      <h2>What is IBM Watson's Personality Insights?</h2>
+      Watch a <a href="https://www.youtube.com/watch?v=YdVVLWv3Fwo">video here</a>.
+      Read more on the <a href="https://www.ibm.com/watson/developercloud/doc/personality-insights/science.html">science here.</a>.
+    </div>
+    <p>Here is the raw data! Scroll down for what a graphical rendering might look like (dummy data).</p>
+    {{ pi_results }}
+    <img src="/img/pi_display.png" alt="results display">
+    <img src="/img/pi_sunburst.png" alt="results sunburst">
+  </div>
+
+  <div class="column is-one-quarter">
+  </div>
+
+</div>

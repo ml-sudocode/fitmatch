@@ -114,6 +114,13 @@ router.route('/token')
     })
   })
 
+// for personalityinsights related
+router.route('/pisetdata')
+  .get(authenticatedUser, userControllers.getPiData)
+  .post(function (req, res) {
+    res.redirect('/user/personalityinsights')
+  })
+
 router.route('/personalityinsights')
   .get(authenticatedUser, userControllers.getPersonalityInsights)
 
