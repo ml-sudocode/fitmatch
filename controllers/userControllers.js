@@ -77,82 +77,37 @@ function saveHeadlineComments (req, res) {
 }
 
 function getPiData (req, res) {
+  req.session.dataforpi = []
   // get user's qna documents and populate the array
   Qna.find({ 'user': req.user._id }, function (err, foundQnaDocs) {
   // if (err) throw err
     if (err) res.send(err)
-    req.session.dataforpi = []
-    // console.log(foundQnaDocs.length)
-    // console.log(foundQnaDocs[0].answers)
     for (var i = 0; i < foundQnaDocs.length; i++) {
       const contentObj = {}
       // need .join(' ') because answers is an array of strings. We want just one string.
       contentObj.content = foundQnaDocs[i].answers.join(' ')
       req.session.dataforpi.push(contentObj)
-      // console.log(`sampleText inside the .find method in getQnaData: ${sampleText}`)
-      // console.log(sampleText)
     }
-    // getHeadlineData(req, res)
-    // console.log(req.session.dataforpi)
+
+    HeadlineComment.find({ 'user': req.user._id }, function (err, foundHeadlineDocs) {
+      // if (err) throw err
+      console.log(`This is from headlinecomment.find`)
+      if (err) res.send(err)
+      for (var i = 0; i < foundHeadlineDocs.length; i++) {
+        const contentObj = {}
+        contentObj.content = foundHeadlineDocs[i].comments.join(' ')
+        req.session.dataforpi.push(contentObj)
+        // This seems to work, i.e. the headline comments get printed to console. But when I look into the db GUI, i don't see the headline comments 
+        console.log(req.session.dataforpi)
+      }
+    })
     res.render('user/pisetdata')
-    // getHeadlineData(req, res)
-  // console.log(sampleText)
-  })
-}
-
-// function prepareData (req, res, getQnaData) {
-//   // getQnaData(req, res)
-//   // console.log(`sampleText after getQnaData (shd have 1 object): ${sampleText}`)
-//   // console.log(sampleText)
-//   // getHeadlineData(req, res)
-//   // console.log(`sampleText after getQnaData (shd have 2 objects): ${sampleText}`)
-//   // console.log(sampleText)
-//   getQnaData(req, res, getHeadlineData)
-//   // console.log(`sampleText before 'next' in prepareData`)
-//   // console.log(sampleText)
-// }
-
-// function getQnaData (req, res, getHeadlineData) {
-//   // get user's qna documents and populate the array
-//   Qna.find({ 'user': req.user._id }, function (err, foundQnaDocs) {
-//   // if (err) throw err
-//     if (err) res.send(err)
-//     // console.log(foundQnaDocs.length)
-//     // console.log(foundQnaDocs[0].answers)
-//     for (var i = 0; i < foundQnaDocs.length; i++) {
-//       const contentObj = {}
-//       // need .join(' ') because answers is an array of strings. We want just one string.
-//       contentObj.content = foundQnaDocs[i].answers.join(' ')
-//       sampleText.push(contentObj)
-//       // console.log(`sampleText inside the .find method in getQnaData: ${sampleText}`)
-//       // console.log(sampleText)
-//     }
-//     getHeadlineData(req, res)
-//   // console.log(sampleText)
-//   })
-//
-function getHeadlineData (req, res) {
-  HeadlineComment.find({ 'user': req.user._id }, function (err, foundHeadlineDocs) {
-    // if (err) throw err
-    if (err) res.send(err)
-    for (var i = 0; i < foundHeadlineDocs.length; i++) {
-      const contentObj = {}
-      contentObj.content = foundHeadlineDocs[i].comments.join(' ')
-      req.session.dataforpi.push(contentObj)
-      console.log(req.session.dataforpi)
-    }
-    // console.log(sampleText)
-    // getPersonalityInsights(req, res)
-    req.session.dataforpi = sampleText
   })
 }
 
 function getPersonalityInsights (req, res) {
-  // console.log(`got to first line in getPersonalityInsights function`)
-  // prepareData(req, res, getQnaData)
-  // console.log(`sampleText after prepareData`)
+  console.log(req.session.dataforpi)
   const sampleText = req.session.dataforpi
-  // console.log(sampleText)
 
   // setTimeout(function() {
     // console.log(`sampleText after setTimeout`)
@@ -188,8 +143,8 @@ function getPersonalityInsights (req, res) {
         // const rawResults = JSON.stringify(response, null, 2)
         // res.send(rawResults)
         rawResults = JSON.stringify(response, null, 2)
-        console.log(`These are the results: ${rawResults}`)
-        console.log(rawResults)
+        // console.log(`These are the results: ${rawResults}`)
+        // console.log(rawResults)
         // res.send(rawResults)
         res.render('user/personalityinsights', {
           user: req.user,
