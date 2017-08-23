@@ -17,6 +17,8 @@ function authenticatedUser (req, res, next) {
 
 router.route('/dashboard')
   .get(authenticatedUser, function (req, res) {
+    console.log(`req.user is: `)
+    console.log(req.user)
     res.render('user/dashboard', {
       user: req.user,
       // to avoid having to write the below for all my routes, i could go to app.js and write app.locals.flash... this writes the flash info into Sessions documents. See Placies repo? He couldn't get it to configure properly for me, so we just do it the longwinded way here

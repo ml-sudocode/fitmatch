@@ -111,20 +111,20 @@ function getPiData (req, res) {
   }
   console.log('inside getpidata')
   async.parallel([ getQnaAnswers, getHeadlineComments ], function (err, results) {
-    console.log('err', err)
+    // console.log('err', err)
     let contentArr = results[0].concat(results[1])
     req.session.dataforpi = contentArr
-    console.log(`req.session.dataforpi, at time of saving, is: `)
-    console.log(req.session.dataforpi)
+    // console.log(`req.session.dataforpi, at time of saving, is: `)
+    // console.log(req.session.dataforpi)
     // console.log(req.session);
+    res.render('user/pisetdata')
   })
   // req.session.save()
-  res.render('user/pisetdata')
 }
 
 function getPersonalityInsights (req, res) {
-  console.log(`req.session.dataforpi, at time of drawing, is: `)
-  console.log(req.session.dataforpi)
+  // console.log(`req.session.dataforpi, at time of drawing, is: `)
+  // console.log(req.session.dataforpi)
   const sampleText = req.session.dataforpi
 
   // setTimeout(function() {
