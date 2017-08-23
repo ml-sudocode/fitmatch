@@ -37,6 +37,7 @@ mongoose.Promise = global.Promise
 
 // set up DB (location) and connect to mongoose ODM
 const url = process.env.MONGODB_URI || 'mongodb://localhost:27017/project-2'
+// const url = 'mongodb://localhost:27017/project-2'
 mongoose.connect(url, {
   useMongoClient: true
 }).then(

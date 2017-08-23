@@ -1,6 +1,7 @@
 // const request = require('request')
 const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest
 // const passport = require('passport')
+const async = require('async')
 const Qna = require('../models/Qna')
 const HeadlineComment = require('../models/HeadlineComment')
 const PersonalityInsightsV3 = require('watson-developer-cloud/personality-insights/v3')
@@ -77,35 +78,51 @@ function saveHeadlineComments (req, res) {
 }
 
 function getPiData (req, res) {
-  req.session.dataforpi = []
-  // get user's qna documents and populate the array
-  Qna.find({ 'user': req.user._id }, function (err, foundQnaDocs) {
-  // if (err) throw err
-    if (err) res.send(err)
-    for (var i = 0; i < foundQnaDocs.length; i++) {
-      const contentObj = {}
-      // need .join(' ') because answers is an array of strings. We want just one string.
-      contentObj.content = foundQnaDocs[i].answers.join(' ')
-      req.session.dataforpi.push(contentObj)
-    }
+  function getQnaAnswers (callback) {
+    Qna.find({ 'user': req.user._id }, function (err, foundQnaDocs) {
+      if (err) throw err
+      // if (err) res.send(err)
+      let contentArrQna = []
+      for (var i = 0; i < foundQnaDocs.length; i++) {
+        const contentObj = {}
+        // need .join(' ') because answers is an array of strings. We want just one string.
+        contentObj.content = foundQnaDocs[i].answers.join(' ')
+        contentArrQna.push(contentObj)
+        // console.log('hi from getQnaAnswers, inside iterator')
+      }
+      // console.log('hi from getQnaAnswers, inside .find')
+      callback(null, contentArrQna)
+    })
+  }
 
+  function getHeadlineComments (callback) {
     HeadlineComment.find({ 'user': req.user._id }, function (err, foundHeadlineDocs) {
-      // if (err) throw err
-      console.log(`This is from headlinecomment.find`)
-      if (err) res.send(err)
+      if (err) throw err
+      // if (err) res.send(err)
+      let contentArrHeadline = []
       for (var i = 0; i < foundHeadlineDocs.length; i++) {
         const contentObj = {}
         contentObj.content = foundHeadlineDocs[i].comments.join(' ')
-        req.session.dataforpi.push(contentObj)
-        // This seems to work, i.e. the headline comments get printed to console. But when I look into the db GUI, i don't see the headline comments 
-        console.log(req.session.dataforpi)
+        contentArrHeadline.push(contentObj)
       }
+      // console.log('hi from getHeadlineComments')
+      callback(null, contentArrHeadline)
     })
-    res.render('user/pisetdata')
+  }
+  console.log('inside getpidata');
+  async.parallel([ getQnaAnswers, getHeadlineComments ], function (err, results) {
+    let contentArr = results[0].concat(results[1])
+    req.session.dataforpi = contentArr
+    // console.log(req.session);
+    console.log(`req.session.dataforpi, at time of saving, is: `)
+    console.log(req.session.dataforpi)
   })
+  // req.session.save()
+  res.render('user/pisetdata')
 }
 
 function getPersonalityInsights (req, res) {
+  console.log(`req.session.dataforpi, at time of drawing, is: `)
   console.log(req.session.dataforpi)
   const sampleText = req.session.dataforpi
 
