@@ -109,13 +109,14 @@ function getPiData (req, res) {
       callback(null, contentArrHeadline)
     })
   }
-  console.log('inside getpidata');
+  console.log('inside getpidata')
   async.parallel([ getQnaAnswers, getHeadlineComments ], function (err, results) {
+    console.log('err', err)
     let contentArr = results[0].concat(results[1])
     req.session.dataforpi = contentArr
-    // console.log(req.session);
     console.log(`req.session.dataforpi, at time of saving, is: `)
     console.log(req.session.dataforpi)
+    // console.log(req.session);
   })
   // req.session.save()
   res.render('user/pisetdata')
@@ -129,45 +130,44 @@ function getPersonalityInsights (req, res) {
   // setTimeout(function() {
     // console.log(`sampleText after setTimeout`)
     // console.log(sampleText)
-    const personality_insights = new PersonalityInsightsV3({
-      username: username,
-      password: password,
-      version_date: '2017-04-10',
-      headers: {
-        'X-Watson-Learning-Opt-Out': 'true'
-      }
-    })
+  const personality_insights = new PersonalityInsightsV3({
+    username: username,
+    password: password,
+    version_date: '2017-04-10',
+    headers: {
+      'X-Watson-Learning-Opt-Out': 'true'
+    }
+  })
 
-    const params = {
+  const params = {
       // Get the content items from the JSON file.
       // content_items: require('./misc_ref/profile.json').contentItems,
-      content_items: sampleText,
-      consumption_preferences: true,
-      raw_scores: true,
-      headers: {
-        'accept-language': 'en',
-        'accept': 'application/json'
-      }
+    content_items: sampleText,
+    consumption_preferences: true,
+    raw_scores: true,
+    headers: {
+      'accept-language': 'en',
+      'accept': 'application/json'
     }
+  }
     // console.log(`got to after params definition in getPersonalityInsights function`)
     // comment this out to avoid an additional API call during testing
-    let rawResults = {}
-    personality_insights.profile(params, function(error, response) {
-      if (error)
-        console.log('Error:', error);
+  let rawResults = {}
+  personality_insights.profile(params, function (error, response) {
+    if (error) { console.log('Error:', error) }
       // else
         // console.log(JSON.stringify(response, null, 2));
         // const rawResults = JSON.stringify(response, null, 2)
         // res.send(rawResults)
-        rawResults = JSON.stringify(response, null, 2)
+    rawResults = JSON.stringify(response, null, 2)
         // console.log(`These are the results: ${rawResults}`)
         // console.log(rawResults)
         // res.send(rawResults)
-        res.render('user/personalityinsights', {
-          user: req.user,
-          pi_results: rawResults
-        })
-      })
+    res.render('user/personalityinsights', {
+      user: req.user,
+      pi_results: rawResults
+    })
+  })
     // console.log(`got to after res.render in getPersonalityInsights function`)
   // }, 8000)
 }
