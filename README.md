@@ -8,7 +8,7 @@ Read Me Contents
 _because swiping right is not enough_
 
 
-**[View It Here](https://intense-cliffs-78971.herokuapp.com)**
+**[View It Here](http://fitmatch.herokuapp.com/)**
 
 ---
 ### Overview
