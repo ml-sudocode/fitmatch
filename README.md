@@ -152,5 +152,3 @@ _None_
 * [MongoDB](https://www.mongodb.com) - Database
 * CSS
 * HTML5
-
-__Contact: michelle.y.lai |at| gmail.com__
